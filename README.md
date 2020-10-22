@@ -1,3 +1,3 @@
 # BOXT CircleCI bundler orb
 
-Part of [boxt/orbs](boxt/orbs)
+Part of [boxt/orbs](https://github.com/boxt/orbs)
