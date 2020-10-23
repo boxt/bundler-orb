@@ -1,6 +1,8 @@
 name: Add installation instructions for latest version
 on:
-  push
+  push:
+    branches:
+      - main
 
 jobs:
   update-readme-with-installation-snippet:
