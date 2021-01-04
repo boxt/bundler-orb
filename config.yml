@@ -7,6 +7,14 @@ display:
   source_url: "https://github.com/boxt/bundler-orb/blob/master/config.yml"
 
 commands:
+  audit:
+    steps:
+      - run:
+          name: "Bundle audit"
+          command: |
+            gem install bundle-audit
+            bundle-audit check --update
+
   cache-read:
     steps:
       - restore_cache:
@@ -24,18 +32,11 @@ commands:
   install:
     steps:
       - run:
-          name: "Install bundler dependencies"
+          name: "Install bundler and dependencies"
           command: |
+            gem install bundler -v=2.2.4
             bundle config set path vendor/bundle
             bundle config set clean true
             bundle config set with ci
             bundle config jobs set with 3
             bundle check || bundle install
-
-  audit:
-    steps:
-      - run:
-          name: "Bundle audit"
-          command: |
-            gem install bundle-audit
-            bundle-audit check --update
