@@ -34,7 +34,7 @@ commands:
       - run:
           name: "Install bundler and dependencies"
           command: |
-            gem install bundler -v=2.2.17
+            gem install bundler -v=2.2.18
             bundle config set path vendor/bundle
             bundle config set clean true
             bundle config set with ci
