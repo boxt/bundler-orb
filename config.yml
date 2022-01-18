@@ -22,10 +22,16 @@ commands:
             - ~/.bundle/config
 
   install:
+    parameters:
+      bundler_version:
+        description: Version of bundler to install and use
+        type: string
+        default: "2.2.33"
     steps:
       - run:
           name: "Install bundler and dependencies"
           command: |
+            gem install bundler --no-document -v << parameters.bundler_version >>
             bundle config set path vendor/bundle
             bundle config set clean true
             bundle config set with ci
