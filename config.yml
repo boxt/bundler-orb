@@ -19,7 +19,7 @@ commands:
           key: gem-cache-{{ checksum "Gemfile.lock" }}
           paths:
             - ./vendor/bundle
-            - ~/.bundle/config
+            - ./.bundle/config
 
   install:
     parameters:
