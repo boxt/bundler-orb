@@ -11,12 +11,12 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - gem-cache-{{ checksum "Gemfile.lock" }}
+            - gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
 
   cache-write:
     steps:
       - save_cache:
-          key: gem-cache-{{ checksum "Gemfile.lock" }}
+          key: gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - ./vendor/bundle
             - ./.bundle/config
