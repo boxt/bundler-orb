@@ -4,7 +4,7 @@ description: Tasks for managing Ruby gems in CircleCI builds
 
 display:
   home_url: "https://github.com/boxt/orbs"
-  source_url: "https://github.com/boxt/bundler-orb/blob/master/config.yml"
+  source_url: "https://github.com/boxt/bundler-orb/blob/main/config.yml"
 
 commands:
   cache-read:
