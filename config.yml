@@ -11,16 +11,16 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-
+            - bundle-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          name: "Restore Bundler gems cache"
   cache-write:
     steps:
       - save_cache:
-          key: gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: bundle-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          name: "Save Bundler gems cache"
           paths:
             - ./vendor/bundle
             - ./.bundle/config
-
   install:
     parameters:
       bundler_version:
@@ -29,7 +29,7 @@ commands:
         default: "2.3.7"
     steps:
       - run:
-          name: "Install bundler and dependencies"
+          name: "Install Bundler and gems"
           command: |
             gem install bundler --no-document -v << parameters.bundler_version >>
             bundle config set path vendor/bundle
