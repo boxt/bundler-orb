@@ -11,16 +11,21 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - bundle-cache-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            # when lock file changes, use increasingly general patterns to restore cache
+            - bundle-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - bundle-cache-{{ arch }}-{{ .Branch }}-
+            - bundle-cache-{{ arch }}-
           name: "Restore Bundler gems cache"
+
   cache-write:
     steps:
       - save_cache:
-          key: bundle-cache-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          key: bundle-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           name: "Save Bundler gems cache"
           paths:
-            - ./vendor/bundle
             - ./.bundle/config
+            - ./vendor/bundle
+
   install:
     parameters:
       bundler_version:
@@ -34,6 +39,5 @@ commands:
             gem install bundler --no-document -v << parameters.bundler_version >>
             bundle config set path vendor/bundle
             bundle config set clean true
-            bundle config set with ci
-            bundle config jobs set with 3
-            bundle check || bundle install
+            bundle config set without seeding
+            bundle install
