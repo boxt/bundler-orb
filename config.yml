@@ -8,19 +8,29 @@ display:
 
 commands:
   cache-read:
+    parameters:
+      version:
+        description: Version of the cache to restore
+        type: string
+        default: "v1"
     steps:
       - restore_cache:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
-            - bundle-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - bundle-cache-{{ arch }}-{{ .Branch }}-
-            - bundle-cache-{{ arch }}-
+            - bundle-cache-<< parameters.version >>-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - bundle-cache-<< parameters.version >>-{{ arch }}-{{ .Branch }}-
+            - bundle-cache-<< parameters.version >>-{{ arch }}-
           name: "Restore Bundler gems cache"
 
   cache-write:
+    parameters:
+      version:
+        description: Version of the cache to save
+        type: string
+        default: "v1"
     steps:
       - save_cache:
-          key: bundle-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: bundle-cache-<< parameters.version >>-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           name: "Save Bundler gems cache"
           paths:
             - ./.bundle/config
@@ -31,7 +41,7 @@ commands:
       bundler_version:
         description: Version of bundler to install and use
         type: string
-        default: "2.3.10"
+        default: "2.3.36"
     steps:
       - run:
           name: "Install Bundler and gems"
