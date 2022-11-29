@@ -31,7 +31,7 @@ commands:
       bundler_version:
         description: Version of bundler to install and use
         type: string
-        default: "2.3.10"
+        default: "2.3.36"
     steps:
       - run:
           name: "Install Bundler and gems"
