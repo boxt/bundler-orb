@@ -12,15 +12,15 @@ commands:
       - restore_cache:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
-            - bundle-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - bundle-cache-{{ arch }}-{{ .Branch }}-
-            - bundle-cache-{{ arch }}-
+            - bundle-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - bundle-cache-v1-{{ arch }}-{{ .Branch }}-
+            - bundle-cache-v1-{{ arch }}-
           name: "Restore Bundler gems cache"
 
   cache-write:
     steps:
       - save_cache:
-          key: bundle-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: bundle-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           name: "Save Bundler gems cache"
           paths:
             - ./.bundle/config
